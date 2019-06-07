@@ -1,44 +1,46 @@
 import csv
+import os
 
-# files load and output
-file_load = 'election_data.csv'
-file_output = 'analysis.txt'
+# Load the csv file and write code for output results
+file_loaded = "election_data.csv"
+file_output = "Election Poll Analysis"
 
-#variables
-total_votes = 0
-num_candidates = 0
-candidate_list = []
-candidate_votes = {}
+#Creating variables from existing data
+Total_num_votes = 0
+num_voters = 0
+
 max_votes = -1
+candidate_list = []
+candidate_polls = {}
 
-# read csv
-with open(file_load) as polldata:
+# read the csv file 
+with open(file_loaded) as polldata:
     reader = csv.DictReader(polldata)
 
     for row in reader:
         candidate_current = row['Candidate']
         if candidate_current not in candidate_list:
-            num_candidates = num_candidates+1
+            num_voters = num_voters+1
             candidate_list.append(candidate_current)
-            candidate_votes[candidate_current]=0
+            candidate_polls[candidate_current]=0
 
-        candidate_votes[candidate_current] = candidate_votes[candidate_current] +1
-        total_votes = total_votes +1
+        candidate_polls[candidate_current] = candidate_polls[candidate_current] +1
+        Total_num_votes = Total_num_votes +1
         
-        if candidate_votes[candidate_current] > max_votes:
-            max_votes = candidate_votes[candidate_current]
+        if candidate_polls[candidate_current] > max_votes:
+            max_votes = candidate_polls[candidate_current]
             candidate_winner = candidate_current
 
-output = 'Election Results\n....................\nTotal Votes: %d\n....................' %(total_votes)
+output = 'Election Results\n-----------------\nTotal Votes: %d\n----------------- %(Total_num_votes)'
 
-#print(output)
 for name in candidate_list:
-    results = ('  %s: %.3f%% (%d)' %(name,  100*candidate_votes[name]/(0.0+total_votes), candidate_votes[name]))
+
+    results = ('  %s: %.3f%% (%d)' %(name,  100*candidate_polls[name]/(0.0+Total_num_votes), candidate_polls[name]))
     output = output + '\n' + results
 
-#print(output)
-final_output = output + '\n....................\n  Winner: %s\n....................\n' %(candidate_winner)
+#print the final result/winner of the election
+final_output = output + '\n-----------------n  Election_Winner: %s\n-----------------n' %(candidate_winner)
 print(final_output)
 
-with open(file_output, 'w') as outputfile:
+with open(file_output, 'Winner') as outputfile:
     outputfile.write(final_output)
