@@ -3,7 +3,7 @@ import os
 
 # Load the csv file and write code for output results
 file_loaded = "election_data.csv"
-file_output = "Election Poll Analysis"
+file_output = "Election_Poll_Analysis.txt"
 
 #Creating variables from existing data
 Total_num_votes = 0
@@ -13,7 +13,7 @@ max_votes = -1
 candidate_list = []
 candidate_polls = {}
 
-# read the csv file 
+# read the  file 
 with open(file_loaded) as polldata:
     reader = csv.DictReader(polldata)
 
@@ -26,7 +26,7 @@ with open(file_loaded) as polldata:
 
         candidate_polls[candidate_current] = candidate_polls[candidate_current] +1
         Total_num_votes = Total_num_votes +1
-        
+
         if candidate_polls[candidate_current] > max_votes:
             max_votes = candidate_polls[candidate_current]
             candidate_winner = candidate_current
@@ -39,8 +39,7 @@ for name in candidate_list:
     output = output + '\n' + results
 
 #print the final result/winner of the election
-final_output = output + '\n-----------------n  Election_Winner: %s\n-----------------n' %(candidate_winner)
+final_output = output + '\n-----------------n  Winner: %s\n-----------------n' %(candidate_winner)
 print(final_output)
-
-with open(file_output, 'Winner') as outputfile:
+with open(file_output, "w") as outputfile:
     outputfile.write(final_output)
